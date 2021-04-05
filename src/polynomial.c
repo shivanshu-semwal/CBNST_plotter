@@ -10,10 +10,26 @@ double calPoly(polynomial *p, double x) {
 }
 
 /* Parse a polynomial and return a array of decree and coefficients, and the length of those array len */
-int parsePolynomial(char *eq, double *degree, double *coeff, int *len) {
-    int n = strlen(eq);
-    char eq2[1000] = {0};
+int parsePolynomial(char *temp, double *degree, double *coeff, int *len) {
+    int n = strlen(temp);
+
+    char eq[1000] = {0};
     int j = 0;
+    for (int i = 0; i < n; i++) {
+        char c = temp[i];
+        if (c == ' ') {
+            continue;
+        } else if ((c >= '0' && c <= '9') || c == '.' || c == 'x' || c == 'X' || c == '+' || c == '-' || c == '^') {
+            eq[j++] = temp[i];
+        } else {
+            printf("\n Error while parsing character { %c } \n", c);
+            return -1;
+        }
+    }
+
+    n = strlen(eq);
+    char eq2[1000] = {0};
+    j = 0;
     for (int i = 0; i < n; i++) {
         if (i == 0 && j == 0 && eq[i] == 'x') {
             eq2[j++] = '1';
@@ -74,12 +90,30 @@ char *displayPolynomial(polynomial *p) {
             sprintf(ch, "(%.2lf)+", p->coeff[i]);
         } else if (p->degree[i] == 1) {
             sprintf(ch, "(%.2lfx)+", p->coeff[i]);
-        }
-        else {
+        } else {
             sprintf(ch, "(%.2lfx^%.2lf)+", p->coeff[i], p->degree[i]);
         }
         strcat(ch1, ch);
     }
-    ch1[strlen(ch1)-1] = '\0';
+    ch1[strlen(ch1) - 1] = '\0';
     return ch1;
+}
+
+polynomial *getDerivative(polynomial *p) {
+    polynomial *der = malloc(sizeof(polynomial));
+    double *degree = (double *)malloc(sizeof(double) * p->n);
+    double *coeff = (double *)malloc(sizeof(double) * p->n);
+    der->degree = degree;
+    der->coeff = coeff;
+    der->n = p->n;
+    for (int i = 0; i < p->n; i++) {
+        if (p->degree[i] == 0) {
+            der->coeff[i] = 0;
+            der->degree[i] = 0;
+        } else {
+            der->coeff[i] = p->degree[i] * p->coeff[i];
+            der->degree[i] = p->degree[i] - 1;
+        }
+    }
+    return der;
 }

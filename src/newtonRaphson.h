@@ -5,5 +5,4 @@
 
 #endif
 
-double newtonRaphson1(polynomial *p, polynomial *p0);
 double newtonRaphson(polynomial *p, polynomial *p0, double x0);

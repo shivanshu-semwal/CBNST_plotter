@@ -15,5 +15,5 @@ typedef struct polynomial {
 double calPoly(polynomial *p, double x);
 int parsePolynomial(char *eq, double *degree, double *coeff, int *len);
 char *displayPolynomial(polynomial *p);
-
+polynomial *getDerivative(polynomial *p);
 // #endif

@@ -6,4 +6,3 @@
 #endif
 
 double regulaFalsi(polynomial *p, double x0, double x1);
-double regulaFalsi1(polynomial *p);
