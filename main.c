@@ -83,10 +83,13 @@ int main() {
         double start = ((x0 <= root) ? x0 : root) - 1;
         double end = ((x0 >= root) ? x0 : root) + 1;
         makePlot(p, start, end, root, "my_image.png");
+        free(p1);
         break;
     }
     default:
         break;
     }
+
+    free(p);
     return 0;
 }

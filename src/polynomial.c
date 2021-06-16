@@ -74,8 +74,8 @@ int parsePolynomial(char *temp, double *degree, double *coeff, int *len) {
 }
 
 char *displayPolynomial(polynomial *p) {
-    char *ch = malloc(sizeof(char) * 1000);
     char *ch1 = malloc(sizeof(char) * 1000);
+    char ch[1000] = {0};
     int i;
     for (i = 0; i < p->n; i++) {
         if (p->coeff[i] == 0) {
